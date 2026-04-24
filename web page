@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Academic Performance Evaluation</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        h2 {
+            text-align: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px 0;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkblue;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Academic Performance Form</h2>
+<form id="studentForm">
+        <label>Name</label>
+        <input type="text" id="name">
+
+        <label>Register Number</label>
+        <input type="text" id="regno">
+
+        <label>Email</label>
+        <input type="email" id="email">
+
+        <label>Department</label>
+        <select id="dept">
+            <option value="">Select</option>
+            <option>AIML</option>
+            <option>CSE</option>
+            <option>IT</option>
+        </select>
+
+        <label>Subject 1 Marks</label>
+        <input type="number" id="m1">
+
+        <label>Subject 2 Marks</label>
+        <input type="number" id="m2">
+
+        <label>Subject 3 Marks</label>
+        <input type="number" id="m3">
+
+        <button type="button" onclick="validateForm()">Submit</button>
+
+        <p id="message"></p>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let regno = document.getElementById("regno").value;
+    let email = document.getElementById("email").value;
+    let dept = document.getElementById("dept").value;
+    let m1 = document.getElementById("m1").value;
+    let m2 = document.getElementById("m2").value;
+    let m3 = document.getElementById("m3").value;
+    let message = document.getElementById("message");
+
+    // ERROR PATH 🚫
+    if(name === "" || regno === "" || email === "" || dept === "" || m1 === "" || m2 === "" || m3 === "") {
+        message.innerHTML = "⚠️ Error: All fields are required!";
+        message.className = "error";
+        return;
+    }
+
+    if(m1 > 100 || m2 > 100 || m3 > 100 || m1 < 0 || m2 < 0 || m3 < 0) {
+        message.innerHTML = "⚠️ Error: Marks must be between 0 and 100!";
+        message.className = "error";
+        return;
+    }
+
+    // HAPPY PATH ✅
+    let total = parseInt(m1) + parseInt(m2) + parseInt(m3);
+    let avg = total / 3;
+
+    let result;
+    if(avg >= 75) result = "Distinction";
+    else if(avg >= 50) result = "Pass";
+    else result = "Fail";
+
+    message.innerHTML = "✅ Success! Avg: " + avg.toFixed(2) + " | Result: " + result;
+    message.className = "success";
+}
+</script>
+
+</body>
+</html>
